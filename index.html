@@ -3,32 +3,44 @@
 <head>
   <title>Book Look</title>
   <script src="node_modules/jquery/dist/jquery.min.js"> </script>
+  <script src="node_modules/handlebars/dist/handlebars.min.js"> </script>
   <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="node_modules/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="style.css">
-
 
 </head>
 <body>
 
 <div id="searchForm" class="col-md-offset-4 col-md-4">
-  <form id="search">
+  
   <h1>BookLook <i class="fa fa-eye"></i></h1>
+  <div class="bookContainer">
+    
+  </div>
+  <form id="search">
   <h4>Enter Book Info</h4>
-  <input class="form-control" placeholder="Book Title"/><br>
-  <input class="form-control" placeholder="Book Author"/><br>
-  <input class="form-control" placeholder="Book Description"/><br>
-  <input class="form-control" placeholder="Image URL"/><br>
-  <input class="form-control" placeholder="Number of Pages"/><br>
-  <input class="form-control" placeholder="Minutes You Read Per Day"/><br>
-  <button class="btn btn-primary">Search</button>
+  <input id="inputTitle" class="form-control" placeholder="Book Title" type="text" required/><br>
+  <input id="inputAuthor" class="form-control" placeholder="Book Author"/><br>
+  <input id="inputDescription" class="form-control" placeholder="Book Description"/><br>
+  <input id="inputURL" class="form-control" placeholder="Image URL"/><br>
+  <input id="inputPages" class="form-control" placeholder="Number of Pages"/><br>
+  <input id="inputMinutes" class="form-control" placeholder="Minutes You Read Per Day"/><br>
+  <button id="submit" class="btn btn-primary">Search</button>
   </form>
 </div>
 
 
-
-
-
+<script id="bookreview-template"type="text/x-handlebars-template">
+ 
+  <div id="bookFound">
+  <p>This book will take you {{minutes}} days to read</p>
+  <h3>{{title}}</h3>
+  <p>{{text}}</p>
+  <h4>Written by: {{author}}</h4> 
+  <img src="{{url}}"></ing>
+  </div>
+ 
+ </script>
 
 
   <script type="text/javascript" src="script.js"></script>
