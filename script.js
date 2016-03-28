@@ -16,7 +16,7 @@ var bookLook = function (){
   
 
      } /*End Object*/
-console.log(book);
+     $('.bookContainer').empty();
     var source = $('#bookreview-template').html();
     var template = Handlebars.compile(source);
     var newHTML = template(book);
