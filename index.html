@@ -26,12 +26,18 @@
 
 <script id="bookreview-template"type="text/x-handlebars-template">
  
-  <div id="bookFound">
-  <h3>{{title}}</h3>
-  <div id="description"><br>{{description}}</div>
-  <p>{{text}}</p>
-  <h4>Written by: {{author}}</h4> 
-  <img src="{{url}}"></ing>
+  <div class="bookFound">
+    <div>
+      <h3>{{title}}</h3>
+      <h4>Written by: {{author}}</h4>
+    </div>
+    <div class="toggle">
+      <div class="description"><br>{{description}}
+      </div>
+      <br>
+      <img src="{{url}}"></img>
+      
+    </div>
   </div>
  </script>
 

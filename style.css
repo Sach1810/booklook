@@ -6,3 +6,20 @@
   position:fixed;
   z-index:1;
 }
+
+
+
+
+.toggle{
+  display:none;
+}
+
+.show {
+  display:block;
+
+}
+
+.bookFound {
+  border: 1px solid gray;
+  padding:3vw;
+}

@@ -2,7 +2,6 @@ var urlISBN
 
 var dataFetch = function (data){
  var isbn = $('#inputISBN').val();
- console.log(isbn);
  $('.bookContainer').empty();
  for (var i = 0; i < data.items.length;i++ ){
         if (i === 10){
@@ -18,6 +17,7 @@ var dataFetch = function (data){
 app.userInput(book);
     }/* *****End if statement ******/
   } /* *****End for loop****** */
+  app.expand();
 }
 
 var fetch = function () {
@@ -53,24 +53,36 @@ var bookLook = function (){
     var newHTML = template(book);
 
 $('.bookContainer').append(newHTML);
+
+
   } /* *****End userInput***** */
 
+  var expand = function(){
+    $('.bookFound').on('click', function (e) {
+  e.preventDefault();
+  console.log(this);
+  $(this).children().siblings('.toggle').toggleClass('show')
+});
+  }
+
   return {
-  userInput: userInput
+  userInput: userInput,
+  expand: expand
   }
 
 } /* *****End bookLook***** */
  
 var app = bookLook();
 $(".loading").hide();
+
 $('#submit').on('click', function (e) {
   e.preventDefault();
   var isbn = $('#inputISBN').val();
   urlISBN = isbn;
-  $(".loading").hide();
   
   fetch();
 });
+
 
 
 
