@@ -1,13 +1,25 @@
-
+var urlISBN
 
 var dataFetch = function (data){
-
+ var isbn = $('#inputISBN').val();
+ console.log(isbn);
+ var book = {
+              title: data.items[0].volumeInfo.title,
+              author: data.items[0].volumeInfo.authors[0],
+              description: data.items[0].volumeInfo.description,
+              url: data.items[0].volumeInfo.imageLinks.smallThumbnail,
+              pages: data.items[0].volumeInfo.pageCount
+     } /*End Object*/
+app.userInput(book);
 }
 
 var fetch = function () {
+  var url = 'https://www.googleapis.com/books/v1/volumes?q=' + urlISBN;
+  console.log(urlISBN);
+  console.log(url);
   $.ajax({
     method: "GET",
-    url: 'https://www.googleapis.com/books/v1/volumes?q=0439023521',
+    url: url,
     dataType: "json",
     success: function(data) {
       console.log(data);
@@ -21,22 +33,9 @@ var fetch = function () {
 
 var bookLook = function (){
 
-  var userInput = function(title, author, description, url, pages, minutes){
-    // $('#bookreview-template').empty();
- var book = {
-              title: title,
-              author: author,
-              description: description,
-              url: url,
-              pages: pages,
-              minutes: function(){
-                  timeTaken = pages / minutes;
-                  return timeTaken
+  var userInput = function(book){
+console.log(book);
 
-                  } /*End minutes method */
-  
-
-     } /*End Object*/
      $('.bookContainer').empty();
     var source = $('#bookreview-template').html();
     var template = Handlebars.compile(source);
@@ -46,30 +45,22 @@ $('.bookContainer').append(newHTML);
 
   } /* *****End userInput***** */
 
-return {
-userInput: userInput
-
-}
+  return {
+  userInput: userInput
+  }
 
 } /* *****End bookLook***** */
-
-// 
-
+ 
 var app = bookLook();
-fetch();
+
+$('#submit').on('click', function (e) {
+  e.preventDefault();
+  var isbn = $('#inputISBN').val();
+  var isbn1 = parseInt(isbn);
+  urlISBN = isbn1;
+  console.log(isbn1);
+  fetch();
+});
 
 
 
-
-
-// ********Works********
-// var books = [ 
-//    {title: "title", author: "author"}    
-// ]
-
-
-// var source = $('#bookreview-template').html();
-// var template = Handlebars.compile(source);
-// var newHTML = template(books[0]);
-
-// $('.bookContainer').append(newHTML);
