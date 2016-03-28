@@ -3,46 +3,56 @@ var urlISBN
 var dataFetch = function (data){
  var isbn = $('#inputISBN').val();
  console.log(isbn);
+ $('.bookContainer').empty();
+ for (var i = 0; i < data.items.length;i++ ){
+        if (i === 10){
+          break
+        } else { 
  var book = {
-              title: data.items[0].volumeInfo.title,
-              author: data.items[0].volumeInfo.authors[0],
-              description: data.items[0].volumeInfo.description,
-              url: data.items[0].volumeInfo.imageLinks.smallThumbnail,
-              pages: data.items[0].volumeInfo.pageCount
+              title: data.items[i].volumeInfo.title,
+              author: data.items[i].volumeInfo.authors[i],
+              description: data.items[i].volumeInfo.description,
+              url: data.items[i].volumeInfo.imageLinks.smallThumbnail,
+              pages: data.items[i].volumeInfo.pageCount
      } /*End Object*/
 app.userInput(book);
+    }/* *****End if statement ******/
+  } /* *****End for loop****** */
 }
 
 var fetch = function () {
+
   var url = 'https://www.googleapis.com/books/v1/volumes?q=' + urlISBN;
-  console.log(urlISBN);
-  console.log(url);
+
   $.ajax({
     method: "GET",
     url: url,
     dataType: "json",
+    beforeSend: function () {
+               $(".loading").show();
+            },
     success: function(data) {
       console.log(data);
       dataFetch(data);
     },
     error: function(jqXHR, textStatus, errorThrown) {
       console.log(textStatus);
-    }
+    },
+    complete: function () {
+                $(".loading").hide();
+            }
   });
 };
 
 var bookLook = function (){
 
   var userInput = function(book){
-console.log(book);
 
-     $('.bookContainer').empty();
     var source = $('#bookreview-template').html();
     var template = Handlebars.compile(source);
     var newHTML = template(book);
 
 $('.bookContainer').append(newHTML);
-
   } /* *****End userInput***** */
 
   return {
@@ -52,13 +62,13 @@ $('.bookContainer').append(newHTML);
 } /* *****End bookLook***** */
  
 var app = bookLook();
-
+$(".loading").hide();
 $('#submit').on('click', function (e) {
   e.preventDefault();
   var isbn = $('#inputISBN').val();
-  var isbn1 = parseInt(isbn);
-  urlISBN = isbn1;
-  console.log(isbn1);
+  urlISBN = isbn;
+  $(".loading").hide();
+  
   fetch();
 });
 
