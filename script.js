@@ -1,3 +1,24 @@
+
+
+var dataFetch = function (data){
+
+}
+
+var fetch = function () {
+  $.ajax({
+    method: "GET",
+    url: 'https://www.googleapis.com/books/v1/volumes?q=0439023521',
+    dataType: "json",
+    success: function(data) {
+      console.log(data);
+      dataFetch(data);
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log(textStatus);
+    }
+  });
+};
+
 var bookLook = function (){
 
   var userInput = function(title, author, description, url, pages, minutes){
@@ -35,21 +56,9 @@ userInput: userInput
 // 
 
 var app = bookLook();
+fetch();
 
 
-
-
-$('#submit').on('click', function (e) {
-  e.preventDefault();
-  var title = $('#inputTitle').val();
-  var author = $('#inputAuthor').val();
-  var description = $('#inputDescription').val();
-  var url = $('#inputURL').val();
-  var pages = $('#inputPages').val();
-  var minutes = $('#inputMinutes').val();
-app.userInput(title, author, description, url, pages, minutes);
-
-});
 
 
 
